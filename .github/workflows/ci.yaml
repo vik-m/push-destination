@@ -1,0 +1,20 @@
+# Refer https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
+name: CI
+
+# Execute workflow on push (develop/master) or pull request to any branch
+on:
+  create:
+    branches:
+      - vik-m/push-source
+
+jobs:
+  update-destination:
+    name: Create pull request
+    runs-on: ubuntu-latest
+    steps:
+      - uses: peter-evans/create-pull-request@v3
+        with:
+          branch: ${{ github.repository }}
+          base: master
+          reviewers: vik-m
+          draft: false
