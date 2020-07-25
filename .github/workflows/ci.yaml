@@ -8,15 +8,11 @@ on:
       - vik-m/push-source
 
 jobs:
-  update-destination:
-    name: Create pull request
+  pull-request:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - uses: peter-evans/create-pull-request@v3
+      - uses: repo-sync/pull-request@v2
         with:
-          branch: ${{ github.repository }}
-          base: master
-          reviewers: vik-m
-          draft: false
+          pr_reviewer: vik-m
