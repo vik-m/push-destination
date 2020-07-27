@@ -10,4 +10,4 @@ jobs:
   fetch-source:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ github.event.labels[0] }}
+      - run: echo github.event.labels
