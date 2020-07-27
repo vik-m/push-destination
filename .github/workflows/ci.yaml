@@ -3,19 +3,12 @@ name: CI
 
 # Execute workflow on push (develop/master) or pull request to any branch
 on:
-  create:
-    branches:
-      - vik-m/push-source
+  issues:
+    types: [opened]
 
 jobs:
-  pull-request:
+  fetch-source:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      - uses: repo-sync/pull-request@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.API_GITHUB_TOKEN }}
-        with:
-          pr_reviewer: vik-m
-          github_token: ${{ secrets.API_GITHUB_TOKEN }}
+        run: echo ${{ toJson(github.event) }}
