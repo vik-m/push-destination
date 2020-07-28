@@ -1,13 +1,13 @@
 # Refer https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
 name: CI
 
-# Execute workflow on push (develop/master) or pull request to any branch
+# Execute workflow on repository_dispatch event
 on:
-  issues:
-    types: [opened]
+  repository_dispatch:
+    types: [start-swagger-workflow]
 
 jobs:
   fetch-source:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ toJson(github.event.issue.labels[0].name) }}
+      - run: echo ${{ toJson(github.event.client_payload.repo_name) }}
