@@ -9,5 +9,26 @@ on:
 jobs:
   fetch-source:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        repo: [push-source, push-source2]
     steps:
-      - run: echo ${{ github.event.client_payload.repo_name }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Make archive destination directory
+        run: mkdir -vp ~/www/archive
+
+      - name: Checkout ${{ matrix.repo }}
+        uses: actions/checkout@v2
+        with:
+          repository: vik-m/${{ matrix.repo }}
+          ref: master
+          token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          path: ${{ matrix.repo }}
+
+      - name: List directory contents
+        run: ls -R
+
+      - name: Copy swagger to static directory
+        run: mv input/test.json ./output/${{ github.event.client_payload.repo_name }}.json
