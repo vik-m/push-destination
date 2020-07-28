@@ -31,4 +31,4 @@ jobs:
         run: ls -R
 
       - name: Copy swagger to static directory
-        run: mv input/test.json ./output/${{ github.event.client_payload.repo_name }}.json
+        run: mv input/test.json ./output/${{ matrix.repo }}.json
