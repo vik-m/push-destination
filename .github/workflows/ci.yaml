@@ -8,6 +8,38 @@ on:
 
 jobs:
   fetch-source:
+    strategy:
+      matrix:
+        repo: [
+          push-source,
+          push-source2,
+        ]
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ github.event.client_payload.repo_name }}
+      - name: Checkout ${{ matrix.repo }}
+        uses: actions/checkout@v2
+        with:
+          repository: pcae/${{ matrix.repo }}
+          ref: master
+          token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+
+      - name: Archive file
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.repo }}
+          path: input/test.json
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [fetch-source]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: ./src/static/
+
+      - name: Log
+        run: ls -R
