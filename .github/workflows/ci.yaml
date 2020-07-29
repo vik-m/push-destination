@@ -16,7 +16,7 @@ jobs:
       - name: Checkout ${{ matrix.repo }}
         uses: actions/checkout@v2
         with:
-          repository: pcae/${{ matrix.repo }}
+          repository: vik-m/${{ matrix.repo }}
           ref: master
           token: ${{ secrets.API_GITHUB_TOKEN }}
 
