@@ -10,10 +10,7 @@ jobs:
   fetch-source:
     strategy:
       matrix:
-        repo: [
-          push-source,
-          push-source2,
-        ]
+        repo: [push-source, push-source2]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout ${{ matrix.repo }}
@@ -21,7 +18,7 @@ jobs:
         with:
           repository: pcae/${{ matrix.repo }}
           ref: master
-          token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          token: ${{ secrets.API_GITHUB_TOKEN }}
 
       - name: Archive file
         uses: actions/upload-artifact@v2
