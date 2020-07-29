@@ -19,12 +19,14 @@ jobs:
           repository: vik-m/${{ matrix.repo }}
           ref: master
           token: ${{ secrets.API_GITHUB_TOKEN }}
+          
+      - name: Change name
+        run: mv input/test.json input/${{ matrix.repo }}.json
 
       - name: Archive file
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ matrix.repo }}
-          path: input/test.json
+          path: input/${{ matrix.repo }}.json
 
   build:
     runs-on: ubuntu-latest
@@ -36,7 +38,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
-          path: ./src/static/
+          path: output
 
       - name: Log
         run: ls -R
