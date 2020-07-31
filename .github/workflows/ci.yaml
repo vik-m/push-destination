@@ -20,13 +20,13 @@ jobs:
         id: set-matrix
         run: |
           jsonContent=`cat repo.json`
-          echo $jsonContent
           echo "::set-output name=matrix::$jsonContent"
 
   fetch-source:
+    needs: [get-repo-list]
     strategy:
       matrix:
-        repo: ${{fromJson(needs.get-repo-list.outputs.matrix)}}
+        repo: ${{ fromJson(needs.get-repo-list.outputs.matrix) }}
     runs-on: ubuntu-latest
     steps:
       - name: Check content
