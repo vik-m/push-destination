@@ -27,8 +27,9 @@ jobs:
       matrix:
         repo: ${{fromJson(needs.get-repo-list.outputs.matrix)}}
     runs-on: ubuntu-latest
-    needs: [get-repo-list]
     steps:
+      - name: Check content
+        run: echo ${{fromJson(needs.get-repo-list.outputs.matrix)}}
       - name: Checkout ${{ matrix.repositories }}
         uses: actions/checkout@v2
         with:
