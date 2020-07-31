@@ -7,26 +7,42 @@ on:
     types: start-swagger-workflow
 
 jobs:
+  get-repo-list:
+    name: Get repository list
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get repositories
+        id: set-matrix
+        run: |
+          jsonContent=`cat repo.json`
+          echo "::set-output name=matrix::jsonContent"
+
   fetch-source:
     strategy:
       matrix:
-        repo: [push-source, push-source2]
+        repo: ${{fromJson(needs.get-repo-list.outputs.matrix)}}
     runs-on: ubuntu-latest
+    needs: [get-repo-list]
     steps:
-      - name: Checkout ${{ matrix.repo }}
+      - name: Checkout ${{ matrix.repositories }}
         uses: actions/checkout@v2
         with:
-          repository: vik-m/${{ matrix.repo }}
+          repository: vik-m/${{ matrix.repositories }}
           ref: master
           token: ${{ secrets.API_GITHUB_TOKEN }}
           
       - name: Change name
-        run: mv input/test.json input/${{ matrix.repo }}.json
+        run: mv input/test.json input/${{ matrix.repositories }}.json
 
       - name: Archive file
         uses: actions/upload-artifact@v2
         with:
-          path: input/${{ matrix.repo }}.json
+          path: input/${{ matrix.repositories }}.json
 
   build:
     runs-on: ubuntu-latest
