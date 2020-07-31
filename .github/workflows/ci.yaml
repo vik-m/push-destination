@@ -20,7 +20,7 @@ jobs:
         id: set-matrix
         run: |
           jsonContent=`cat repo.json`
-          echo "::set-output name=matrix::{\"repositories\":[\"push-source\",\"push-source2\"]}"
+          echo "::set-output name=matrix::$( echo $jsonContent )"
 
   fetch-source:
     needs: job1
