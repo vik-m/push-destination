@@ -20,6 +20,7 @@ jobs:
         id: set-matrix
         run: |
           jsonContent=`cat repo.json`
+          echo jsonContent
           echo "::set-output name=matrix::jsonContent"
 
   fetch-source:
