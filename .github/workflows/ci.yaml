@@ -24,6 +24,7 @@ jobs:
 
   fetch-source:
     needs: get-repo-list
+    name: Fetch sources
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{fromJson(needs.get-repo-list.outputs.matrix)}}
