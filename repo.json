@@ -2,5 +2,64 @@
   "repositories": [
     "push-source",
     "push-source2"
-  ]
+  ],
+  "apis": {
+    "header": "Candicom",
+    "list": {
+      "api-cp": {
+        "description": "キャリアポケット連携ようBFF",
+        "swagger": "/candicom-api-cp.yaml",
+        "title": "CP API",
+        "url": "/api/api-cp"
+      },
+      "candidate": {
+        "description": "DODA会員情報CRUDようマイクロサービス",
+        "swagger": "/candicom-candidate.yaml",
+        "title": "CANDIDATE",
+        "url": "/api/candidate"
+      },
+      "consultation": {
+        "description": "相談履歴CRUDようマイクロサービス",
+        "swagger": "/candicom-consultation.yaml",
+        "title": "CONSULTATION",
+        "url": "/api/consultation"
+      },
+      "joinee": {
+        "description": "入社情報CRUDようマイクロサービス",
+        "swagger": "/candicom-joinee.yaml",
+        "title": "JOINEE",
+        "url": "/api/joinee"
+      },
+      "label": {
+        "description": "項目メタデータようマイクロサービス",
+        "swagger": "/candicom-label.yaml",
+        "title": "LABEL",
+        "url": "/api/label"
+      },
+      "survey": {
+        "description": "アンケートCRUDようマイクロサービス",
+        "swagger": "/candicom-survey.yaml",
+        "title": "SURVEY",
+        "url": "/api/survey"
+      },
+      "transformer": {
+        "description": "Frontendとサービスを連携するBFF",
+        "swagger": "/candicom-transformer.yaml",
+        "title": "TRANSFORMER",
+        "url": "/api/transformer"
+      },
+      "user": {
+        "description": "システムユーザーようマイクロサービス",
+        "swagger": "/candicom-user.yaml",
+        "title": "USER",
+        "url": "/api/user"
+      },
+      "view": {
+        "description": "ビューメタデータようマイクロサービス",
+        "swagger": "/candicom-view.yaml",
+        "title": "VIEW",
+        "url": "/api/view"
+      }
+    }
+  }
 }
