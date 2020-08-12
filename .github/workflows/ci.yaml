@@ -7,7 +7,7 @@ on:
     types: start-swagger-workflow
 
 jobs:
-  job1:
+  get-repo-list:
     name: Get repository list
     runs-on: ubuntu-latest
     outputs:
@@ -23,10 +23,10 @@ jobs:
           echo "::set-output name=matrix::$( echo $jsonContent )"
 
   fetch-source:
-    needs: job1
+    needs: get-repo-list
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{fromJson(needs.job1.outputs.matrix)}}
+      matrix: ${{fromJson(needs.get-repo-list.outputs.matrix)}}
     steps:
       - name: Checkout ${{ matrix.repositories }}
         uses: actions/checkout@v2
